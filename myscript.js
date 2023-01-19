@@ -7,39 +7,37 @@ let currentOperator = "";
 
 
 // 1. operations
-function add(a,b) {
-    return a+b;
+function add(firstNum,secondNum) {
+    return firstNum+secondNum;
 };
 
-function subtract(a,b) {
-    return a-b;
+function subtract(firstNum,secondNum) {
+    return firstNum-secondNum;
 };
 
-function multiply(a,b) {
-    return a*b;
+function multiply(firstNum,secondNum) {
+    return firstNum*secondNum;
 };
 
-function divide(a,b) {
-    return a/b;
+function divide(firstNum,secondNum) {
+    return firstNum/secondNum;
 };
 
 // 2. operate function
-function operate(operator, a, b) {
-    let result = 0;
-    if(operator == '+') {
-        result = add(a,b);
-    };
-    if(operator == '-') {
-        result = subtract(a,b);
-    };
-    if(operator == '*') {
-        result = multiply(a,b);
-    };
-    if(operator == '/') {
-        result = divide(a,b);
-    };
-    return result;
-};        
+function operate(operator, firstNum, secondNum) {
+    switch (operator) {
+      case '+':
+        return add(firstNum, secondNum);
+      case '-':
+        return subtract(firstNum, secondNum);
+      case '*':
+        return multiply(firstNum, secondNum);
+      case '/':
+        return divide(firstNum, secondNum);
+      default:
+        return 'Invalid operator';
+    }
+  };     
 
 // 3. button assignment functions
 
@@ -48,12 +46,30 @@ function printScreen(event) {
     let number = button.textContent;
     screen.textContent += number;
     displayValue += number;
-}
+};
+
+function operatorClicked(event) {
+    let button = event.target;
+    let operator = button.textContent;
+    firstNum = Number(displayValue);
+    currentOperator = operator;
+    displayValue = "";
+    if (currentOperator) {
+        screen.textContent += " " + operator + " ";
+    } else {
+        screen.textContent = operator;
+    }
+};
 
 let buttons = document.querySelectorAll('.btn');
 for (i = 0; i < buttons.length; i ++) {
     buttons[i].addEventListener('click', printScreen);
 };
+
+let operands = document.querySelectorAll('.op');
+for (i = 0; i < operands.length; i ++) {
+    operands[i].addEventListener('click', operatorClicked);
+}
 
 
 // clear and delete btn
@@ -70,5 +86,15 @@ delBtn.addEventListener('click', () => {
 });
 
 
-// math op btn
+// equals btn
+
+const equalsBtn = document.querySelector('#equals');
+equalsBtn.addEventListener('click', () => {
+    let secondNum = Number(displayValue);
+    if (currentOperator !== '') {
+        let result = operate(currentOperator, firstNum, secondNum);
+        screen.textContent = result;
+        displayValue = result;
+    }
+});
 
