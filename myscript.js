@@ -39,7 +39,7 @@ function operate(operator, firstNum, secondNum) {
     }
   };     
 
-// 3. button assignment functions
+// screen functions
 
 function printScreen(event) {
     let button = event.target;
@@ -61,6 +61,8 @@ function operatorClicked(event) {
     }
 };
 
+// 3. button assignment functions
+
 let buttons = document.querySelectorAll('.btn');
 for (i = 0; i < buttons.length; i ++) {
     buttons[i].addEventListener('click', printScreen);
@@ -73,6 +75,7 @@ for (i = 0; i < operands.length; i ++) {
 
 
 // clear and delete btn
+
 const clearBtn = document.querySelector('#clearBtn');
 clearBtn.addEventListener('click', () => {
     screen.textContent = "";
@@ -97,4 +100,8 @@ equalsBtn.addEventListener('click', () => {
         displayValue = result;
     }
 });
+
+// decimal
+
+
 
